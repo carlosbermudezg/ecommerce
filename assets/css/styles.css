@@ -1,0 +1,33 @@
+:root {
+    --bg-main :#f6f6f6;
+    --bg-secondary:#F4365E;
+    --bg-lightblue:#97dddf;
+    --bg-blue:#114070;
+}
+.bg-main {
+    background-color: var(--bg-main) !important;
+}
+.bg-secondary {
+    background-color: var(--bg-secondary) !important;
+}
+.bg-lightblue {
+    background-color: var(--bg-lightblue) !important;
+}
+.bg-blue {
+    background-color: var(--bg-blue) !important;
+}
+.brand {
+    color: var(--bg-secondary);
+}
+.light-text {
+    color: #ffffff !important;
+}
+.card {
+    transition: 0.5s;
+}
+.card:hover {
+    transform: translateY(-10px);
+}
+.margin-top {
+    margin-top: 3em;
+}
