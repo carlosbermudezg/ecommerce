@@ -57,5 +57,31 @@ const updateItems = () => {
     document.getElementById('items-cart').innerText = productStorage.length
 }
 
+const search = (value) => {
+    axios.get(`${baseUrl}products`)
+        .then((response) => {
+            let arr = []
+            const s = response.data
+            for(let i = 0; i < s.length; i++){
+                if(s[i].name.includes(value)){
+                    arr.push(s[i])
+                }
+            }
+            if(arr.length > 0){
+                printProducts(arr)
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+} 
+
+//Capturamos Busqueda
+const btnSearch = document.querySelector('#btn__search')
+const inputSearch = document.querySelector('#search')
+btnSearch.addEventListener('click', () => {
+    search(inputSearch.value)
+})
+
 updateItems()
-export { getProducts, addProduct, deleteCartProducts }
+export { getProducts, addProduct, deleteCartProducts, search }

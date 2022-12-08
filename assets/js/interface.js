@@ -49,7 +49,7 @@ const addProductCart = (products) => {
             <h6 class="my-0">${products[i].name}</h6>
             </div>
             <span class="text-success">$ ${products[i].price.toFixed(2)}</span>
-            <a onclick="deleteCartProducts(${i},'list-group${i}')" class="btn btn-danger">Delete</a>
+            <a onclick="deleteCartProducts(${i},'list-group${i}')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
         </li>
         `
     }
