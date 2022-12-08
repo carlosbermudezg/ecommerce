@@ -24,37 +24,31 @@ const addProduct = (id)=> {
             updateItems()
             addProductCart(productStorage)
             addToast(product)
-            // document.getElementById('toast-price').innerText = '$ ' + product.price.toFixed(2)
-            // document.getElementById('addedProduct').innerText = product.name
-            // const toastLiveExample = document.getElementById('liveToast')
-            // const toast = new bootstrap.Toast(toastLiveExample)
-            // toast.show()
         })
 }
 
 addProductCart(productStorage)
 
 const deleteCartProducts = (index, block) => {
-    const total = productStorage.splice(index,1)
+    //Eliminamos el item del localStorage
+    const deletedItem = productStorage.splice(index,1)
+    //Guardamos el nuevo valor del LocalStorage
     const newStorage = productStorage
-    localStorage.clear()
-    localStorage.setItem('cartProducts', JSON.stringify(newStorage))
-    console.log(productStorage);
+    //Asignamos el nuevo total de los items en el carrito
+    const totalCart = document.getElementById('total').getAttribute('value')
+    let newTotalCart = totalCart - deletedItem[0].price
+    document.getElementById('total').setAttribute('value', `${newTotalCart}`)
+    document.getElementById('total').innerText = '$ ' + newTotalCart.toFixed(2)
+    //removemos el item del carrito
     document.getElementById(block).remove()
+    //Limpiamos el Almacenamiento Local
+    localStorage.clear()
+    //Asignamos el nuevo listado de Items en el carrito
+    localStorage.setItem('cartProducts', JSON.stringify(newStorage))
+    //rescribimos el listado de items en el carrito
+    addProductCart(newStorage)
+    //Actualizamos el numero de productos en el carrito
     updateItems()
-    
-    const act = document.getElementById('total').getAttribute('value')
-    let res = act - total[0].price
-    console.log(res);
-
-    document.getElementById('total').setAttribute('value', `${res}`)
-
-    document.getElementById('total').innerText = '$ ' + res.toFixed(2)
-}
-
-const updateItems = () => {
-    productStorage.length <= 0 ? document.getElementById('totalShop').innerText = '0' :  document.getElementById('totalShop').innerText = productStorage.length
-    document.getElementById('items-cart').innerText = productStorage.length
 }
 
 const search = (value) => {
@@ -74,7 +68,7 @@ const search = (value) => {
         .catch((error) => {
             console.log(error);
         })
-} 
+}
 
 //Capturamos Busqueda
 const btnSearch = document.querySelector('#btn__search')
@@ -82,6 +76,18 @@ const inputSearch = document.querySelector('#search')
 btnSearch.addEventListener('click', () => {
     search(inputSearch.value)
 })
+
+//Correccion compartamiento de Tabs
+const homeTab = document.querySelector('#home')
+const btnCart = document.querySelector('#btn__cart')
+btnCart.addEventListener('click', ()=> {
+    homeTab.classList.remove('active')
+})
+
+const updateItems = () => {
+    productStorage.length <= 0 ? document.getElementById('totalShop').innerText = '0' :  document.getElementById('totalShop').innerText = productStorage.length
+    document.getElementById('items-cart').innerText = productStorage.length
+}
 
 updateItems()
 export { getProducts, addProduct, deleteCartProducts, search }
